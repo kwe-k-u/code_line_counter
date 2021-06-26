@@ -99,18 +99,20 @@ public class LineReader{
     private void exploreDirectory(File file) throws IOException {
 
 
-        if (file.isDirectory()){
-            System.out.println("Opening folder " + file.getCanonicalPath());
-            for (File p : file.listFiles()) {
-                exploreDirectory(p);
+        if (!isIgnored(file)) {
+            if (file.isDirectory()) {
+                System.out.println("Opening folder " + file.getCanonicalPath());
+                for (File p : file.listFiles()) {
+                    exploreDirectory(p);
+                }
+
+                //read files
+            } else if (file.isFile() && file.canRead()) {
+                Thread t = new Thread(new LineCounter(file));
+                t.start();
+
+
             }
-
-            //read files
-        } else if (file.isFile() && file.canRead() ){
-            Thread t = new Thread(new LineCounter(file));
-            t.start();
-
-
         }
     }
 

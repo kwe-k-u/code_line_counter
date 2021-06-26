@@ -54,5 +54,7 @@ public class LineCounter extends LineReader implements Runnable{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+
     }
 }

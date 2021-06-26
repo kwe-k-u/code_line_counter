@@ -41,9 +41,13 @@ public class LineReader{
             System.out.println("readignore found at " + p);
 
             while (ignoreScanner.hasNext()) {
-                String current = ignoreScanner.nextLine();
+                String current = ignoreScanner.nextLine().trim();
+                //ignoring empty lines in the ignore file
+                if (current == "" || current =="\n")
+                    continue;
 
-                if (!current.contains("#")) {//ignore comments
+
+                if (!current.startsWith("#")) {//ignore comments
 
 
                     if (current.endsWith("\\")) //handling directory ignores

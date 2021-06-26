@@ -7,23 +7,13 @@ import java.util.Scanner;
 /**
  * Class that reads the number of words and lines in a file
  */
-public class Counter extends LineReader{
+public class Counter extends LineReader implements Runnable{
     private File file;
-//    int numberWords = 0;
-//    int numLines = 0;
 
     Counter(File r){
         super();
-        System.out.println("Prints");
-        System.out.println(this.packedLineCount);
-        System.out.println(this.spacedLineCount);
 
         this.file = r;
-        try {
-            openFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     private void openFile()throws FileNotFoundException{
@@ -31,12 +21,25 @@ public class Counter extends LineReader{
 
         while (s.hasNext()){
             String line = s.nextLine();
+
+
+
+            increasePackedLineCount();
             if(line.compareTo("") == 0 ||line.compareTo("\n") == 0 )
                 increaseSpacedLineCount();
 
-            increasePackedLineCount();
 
         }
 
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            openFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

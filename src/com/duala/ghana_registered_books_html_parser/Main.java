@@ -11,6 +11,7 @@ public class Main {
         String path = input.next();
         LineReader reader = new LineReader(path);
 
+
         reader.displayStats();
 
     }

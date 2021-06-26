@@ -2,11 +2,10 @@ package com.duala.ghana_registered_books_html_parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
-public class LineReader {
-    private File rootDirectory;
-    static public int spacedLineCount = 0;
+public class LineReader{
+    private static File rootDirectory;
+    static public int emptyLineCount = 0;
     static public int packedLineCount = 0;
 
 
@@ -16,8 +15,7 @@ public class LineReader {
     }
 
     void increaseSpacedLineCount(){
-        this.spacedLineCount++;
-        increasePackedLineCount();
+        this.emptyLineCount++;
     }
 
 
@@ -29,6 +27,7 @@ public class LineReader {
         } catch (Exception e){
             System.out.println(e);
         }
+
 
 
     }
@@ -43,7 +42,8 @@ public class LineReader {
 
             //read files and
         } else if (file.isFile() && file.canRead()){
-            new Counter(file);
+            Thread t = new Thread(new Counter(file));
+            t.run();
 
 
         }
@@ -52,10 +52,9 @@ public class LineReader {
 
     public void displayStats(){
         System.out.println("Statistics for "+ rootDirectory.getAbsolutePath());
-        System.out.println("Number of lines (Including blank Lines: " + this.spacedLineCount);
-        System.out.println("Number of lines (excluding blank Lines: " + this.packedLineCount);
+        System.out.println("Number of lines (Including blank Lines): " + (this.emptyLineCount + this.packedLineCount));
+        System.out.println("Number of lines (excluding blank Lines): " + this.packedLineCount);
     }
-
 
 
 }

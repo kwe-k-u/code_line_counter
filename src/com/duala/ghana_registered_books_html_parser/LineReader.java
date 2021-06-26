@@ -7,21 +7,15 @@ public class LineReader{
     private static File rootDirectory;
     static public int emptyLineCount = 0;
     static public int packedLineCount = 0;
-
-
-    void increasePackedLineCount(){
-        this.packedLineCount++;
-
-    }
-
-    void increaseSpacedLineCount(){
-        this.emptyLineCount++;
-    }
+    static public int wordCount = 0;
 
 
     LineReader(){}
     LineReader(String p){
         this.rootDirectory = new File(p);
+
+
+
         try {
             exploreDirectory(this.rootDirectory);
         } catch (Exception e){
@@ -42,7 +36,7 @@ public class LineReader{
 
             //read files and
         } else if (file.isFile() && file.canRead()){
-            Thread t = new Thread(new Counter(file));
+            Thread t = new Thread(new LineCounter(file));
             t.run();
 
 
@@ -54,6 +48,18 @@ public class LineReader{
         System.out.println("Statistics for "+ rootDirectory.getAbsolutePath());
         System.out.println("Number of lines (Including blank Lines): " + (this.emptyLineCount + this.packedLineCount));
         System.out.println("Number of lines (excluding blank Lines): " + this.packedLineCount);
+        System.out.println("Number of words: "+ this.wordCount);
+    }
+
+
+
+    void increasePackedLineCount(){
+        this.packedLineCount++;
+
+    }
+
+    void increaseSpacedLineCount(){
+        this.emptyLineCount++;
     }
 
 

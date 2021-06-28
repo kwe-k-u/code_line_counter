@@ -11,13 +11,23 @@ import java.util.Scanner;
 public class LineCounter extends LineReader implements Runnable{
     private File file;
 
+    /**
+     * Default constructor
+     * @param r file to be analysed
+     */
     LineCounter(File r){
         super();
 
         this.file = r;
     }
 
+    /**
+     * Opens the passed file and iterates through the lines, updating line counts and creating
+     * new instances of word counts for each line
+     * @throws FileNotFoundException
+     */
     private void openFile()throws FileNotFoundException{
+        /** List of characters that pass as end characters and not actual code*/
         ArrayList<String> endCharacters = new ArrayList<String>();
         endCharacters.add("\n");
         endCharacters.add("");
@@ -25,12 +35,16 @@ public class LineCounter extends LineReader implements Runnable{
         endCharacters.add("]");
         endCharacters.add("{");
         endCharacters.add("}");
+        endCharacters.add(";");
+        endCharacters.add(",");
+        endCharacters.add("'");
+        endCharacters.add("\"");
 
 
         Scanner s = new Scanner(file);
 
-        while (s.hasNext()){
-            String line = s.nextLine();
+        while (s.hasNext()){//while more lines exist in the file
+            String line = s.nextLine().trim();
 
 
 

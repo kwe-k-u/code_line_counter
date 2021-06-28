@@ -1,8 +1,5 @@
 package com.duala.ghana_registered_books_html_parser;
 
-import javax.sound.sampled.Line;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
